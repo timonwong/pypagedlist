@@ -1,6 +1,9 @@
 .idea/
 .tox/
 *.egg-info/
+*.egg/
+build/
+dist/
 
 *.py[cod]
 
