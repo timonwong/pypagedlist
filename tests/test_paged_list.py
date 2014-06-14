@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from .fakes import SimplePagedList
+from pagedlist import SimplePagedList
 
 
 def test_none_data_doesnt_thrown_exception():

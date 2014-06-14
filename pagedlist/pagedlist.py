@@ -257,6 +257,14 @@ class PagedListBase(IPagedList):
         return self._subset.count(value)
 
 
+class SimplePagedList(PagedListBase):
+    def _query_limit_offset_fn(self, query, limit, offset):
+        return query[offset:offset + limit]
+
+    def _query_count_fn(self, query):
+        return len(query)
+
+
 class PagedList(PagedListBase):
     def __init__(self, query, page_number, page_size):
         """
