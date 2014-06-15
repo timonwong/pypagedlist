@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from . import sa
+from . import db
 
 
-class Track(sa.Model):
-    id = sa.Column(sa.Integer, primary_key=True)
-    name = sa.Column(sa.Unicode(200))
-    composer = sa.Column(sa.Unicode(220))
-    duration = sa.Column(sa.Integer)
-    size = sa.Column(sa.Integer)
-    unit_price = sa.Column(sa.Numeric(precision=10, scale=2))
+class Track(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Unicode(200))
+    composer = db.Column(db.Unicode(220))
+    duration = db.Column(db.Integer)
+    size = db.Column(db.Integer)
+    unit_price = db.Column(db.Numeric(precision=10, scale=2))
