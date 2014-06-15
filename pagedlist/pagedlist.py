@@ -164,8 +164,8 @@ class PagedListBase(IPagedList):
         self._page_size = page_size
         self._page_number = page_number
         if self.total_item_count > 0:
-            self._page_count = math.ceil(self.total_item_count /
-                                         float(page_size))
+            self._page_count = int(math.ceil(self.total_item_count /
+                                             float(page_size)))
         else:
             self._page_count = 0
         self._has_previous_page = page_number > 1
