@@ -22,10 +22,10 @@ class Builder(object):
     @classmethod
     def _wrap_in_list_item(cls, inner, options, *classes):
         li = tag.li
-        cls._element_with_classes(li, classes)
+        cls._element_with_classes(li, *classes)
         if options.function_to_transform_each_page_link:
             return options.function_to_transform_each_page_link(li, inner)
-        li(genshi.core.Markup(str(inner)))
+        li(genshi.core.Markup(inner.generate().render()))
         return li
 
     @classmethod
@@ -162,7 +162,7 @@ class Builder(object):
                 (options.display_link_to_first_page ==
                  PagedListDisplayMode.IfNeeded and first_page_to_display > 1)):
             list_item_links.append(
-                cls._first(list, page_url_generator, options))
+                cls._first(paged_list, page_url_generator, options))
 
         # Previous
         if (options.display_link_to_previous_page ==
@@ -244,16 +244,16 @@ class Builder(object):
                 cls._element_with_classes(li, *options.li_element_classes)
 
         # Collapse all of the list items into one big strings
-        list_items_string = ''.join([str(li) for li in list_item_links])
+        list_items_string = ''.join([li.generate().render() for li in list_item_links])
 
         ul = tag.ul(genshi.core.Markup(list_items_string))
         cls._element_with_classes(ul, *options.ul_element_classes)
 
         outer_div = tag.div
         cls._element_with_classes(outer_div, *options.container_div_classes)
-        outer_div(genshi.core.Markup(str(ul)))
+        outer_div(genshi.core.Markup(ul.generate().render()))
 
-        return str(outer_div)
+        return outer_div.generate().render()
 
     @classmethod
     def paged_list_goto_page_form(cls, paged_list, form_action,
@@ -284,6 +284,7 @@ class Builder(object):
         submit(type='submit',
                value=options.submit_button_format)
 
-        fieldset(genshi.core.Markup(str(label + input_tag + submit)))
-        form(genshi.core.Markup(str(fieldset)))
+        fieldset(genshi.core.Markup(
+            (label + input_tag + submit).generate().render()))
+        form(genshi.core.Markup(fieldset.generate().render()))
         return str(form)
