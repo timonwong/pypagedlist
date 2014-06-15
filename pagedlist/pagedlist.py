@@ -149,6 +149,9 @@ class PagedListMetaData(IPagedList):
 
 class PagedListBase(IPagedList):
     def __init__(self, query, page_number, page_size):
+        assert isinstance(page_number, six.integer_types)
+        assert isinstance(page_size, six.integer_types)
+
         if page_number < 1:
             raise IndexError("page_number cannot be below 1.")
         if page_size < 1:
