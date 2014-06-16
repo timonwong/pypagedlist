@@ -26,20 +26,27 @@ def custom_jinja2_filters(app):
 
 def paged_list_helper(app):
     from pagedlist.web import builder
+    from pagedlist.web import options
+
+    class Builder(builder.Builder):
+        @classmethod
+        def paged_list_pager(cls, paged_list, page_url_generator, options=None):
+            return jinja2.Markup(super(Builder, cls).paged_list_pager(
+                paged_list, page_url_generator, options))
+
+        @classmethod
+        def paged_list_goto_page_form(cls, paged_list, form_action,
+                                      options=None):
+            return jinja2.Markup(super(Builder, cls).paged_list_goto_page_form(
+                paged_list, form_action, options))
+
+        @classmethod
+        def page_url_generator(cls, endpoint):
+            return lambda page: url_for(endpoint, page=page)
 
     @app.context_processor
     def utility_processor():
-        from pagedlist.web import options
-
-        def paged_list_pager(paged_list, page_url_generator, options=None):
-            return jinja2.Markup(builder.Builder.paged_list_pager(
-                paged_list, page_url_generator, options))
-
-        def page_url_generator(endpoint):
-            return lambda page: url_for(endpoint, page=page)
-
-        return dict(paged_list_pager=paged_list_pager,
-                    page_url_generator=page_url_generator,
+        return dict(paged_builder=Builder,
                     paged_options=options)
 
 
