@@ -2,14 +2,15 @@
 import math
 import os
 
+import jinja2
 from flask import Flask
 from flask import url_for
 from flask.ext.bootstrap import Bootstrap
-import jinja2
 
 from .db import db
 from .db import models
 from .views.home import HomeView
+from .views.unobtrusive import UnobtrusiveView
 
 
 def custom_jinja2_filters(app):
@@ -35,6 +36,8 @@ def paged_list_helper(app):
 
     @app.context_processor
     def utility_processor():
+        from pagedlist.web import options
+
         def paged_list_pager(paged_list, page_url_generator, options=None):
             return jinja2.Markup(builder.Builder.paged_list_pager(
                 paged_list, page_url_generator, options))
@@ -43,7 +46,8 @@ def paged_list_helper(app):
             return lambda page: url_for(endpoint, page=page)
 
         return dict(paged_list_pager=paged_list_pager,
-                    page_url_generator=page_url_generator)
+                    page_url_generator=page_url_generator,
+                    PagedListRenderOptions=options.PagedListRenderOptions)
 
 
 def create_app():
@@ -60,6 +64,7 @@ def create_app():
     db.init_app(app)
     # Register views
     HomeView.register(app)
+    UnobtrusiveView.register(app)
     # Bootstrap
     Bootstrap(app)
     # Helpers

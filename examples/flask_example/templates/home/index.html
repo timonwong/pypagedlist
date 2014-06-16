@@ -1,6 +1,10 @@
 {% extends "_layout.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
+{% block navbar %}
+{{ navbar('traditional') }}
+{% endblock %}
+
 {% block content %}
 <div class="container">
 
@@ -29,9 +33,9 @@
     {% endfor %}
   </tbody>
 </table>
-</div>
 
 {{ paged_list_pager(paged_list, page_url_generator('HomeView:index')) }}
+</div>
 
 </div>
 {% endblock %}
