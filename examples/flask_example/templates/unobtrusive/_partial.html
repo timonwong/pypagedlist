@@ -25,14 +25,62 @@
   </tbody>
 </table>
 
+{%
+set ajax_options = paged_options.AjaxOptions(http_method='GET',
+                                             update_target_id='ajax-tracks-table',
+                                             on_complete='on_paged_complete')
+%}
+
+<h4>Pager 1 - Classic</h4>
 {{
 paged_list_pager(paged_list,
                  page_url_generator('UnobtrusiveView:index'),
-                 paged_options.PagedListRenderOptions.enable_unobtrusive_ajax_replacing_options(
-                     paged_options.AjaxOptions(
-                         http_method='GET',
-                         update_target_id='ajax-tracks-table',
-                         on_complete='on_paged_complete')))
+                 paged_options.PagedListRenderOptions.enable_unobtrusive_ajax_replacing_options(ajax_options))
+}}
+
+<h4>Pager 2 - Only show five pages at a time</h4>
+{{
+paged_list_pager(paged_list,
+                 page_url_generator('UnobtrusiveView:index'),
+                 paged_options.PagedListRenderOptions.enable_unobtrusive_ajax_replacing(
+                     paged_options.PagedListRenderOptions.only_show_five_pages_at_a_time(),
+                     ajax_options))
+}}
+
+<h4>Pager 3 - Minimal with page count</h4>
+{{
+paged_list_pager(paged_list,
+                 page_url_generator('UnobtrusiveView:index'),
+                 paged_options.PagedListRenderOptions.enable_unobtrusive_ajax_replacing(
+                     paged_options.PagedListRenderOptions.minimal_with_page_count_text(),
+                     ajax_options))
+}}
+
+<h4>Pager 4 - Minimal with item count</h4>
+{{
+paged_list_pager(paged_list,
+                 page_url_generator('UnobtrusiveView:index'),
+                 paged_options.PagedListRenderOptions.enable_unobtrusive_ajax_replacing(
+                     paged_options.PagedListRenderOptions.minimal_with_item_count_text(),
+                     ajax_options))
+}}
+
+ <h4>Pager 5 - Twitter bootstrap style</h4>
+{{
+paged_list_pager(paged_list,
+                 page_url_generator('UnobtrusiveView:index'),
+                 paged_options.PagedListRenderOptions.enable_unobtrusive_ajax_replacing(
+                     paged_options.PagedListRenderOptions.twitter_bootstrap_pager(),
+                     ajax_options))
+}}
+
+<h4>Pager 6 - Twitter bootstrap style (aligned)</h4>
+{{
+paged_list_pager(paged_list,
+                 page_url_generator('UnobtrusiveView:index'),
+                 paged_options.PagedListRenderOptions.enable_unobtrusive_ajax_replacing(
+                     paged_options.PagedListRenderOptions.twitter_bootstrap_pager_aligned(),
+                     ajax_options))
 }}
 
 </div>
