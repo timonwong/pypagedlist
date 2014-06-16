@@ -25,6 +25,14 @@
   </tbody>
 </table>
 
-{{ paged_list_pager(paged_list, page_url_generator('UnobtrusiveView:index'), PagedListRenderOptions.enable_unobtrusive_ajax_replacing_id('ajax-tracks-table')) }}
+{{
+paged_list_pager(paged_list,
+                 page_url_generator('UnobtrusiveView:index'),
+                 paged_options.PagedListRenderOptions.enable_unobtrusive_ajax_replacing_options(
+                     paged_options.AjaxOptions(
+                         http_method='GET',
+                         update_target_id='ajax-tracks-table',
+                         on_complete='on_paged_complete')))
+}}
 
 </div>

@@ -40,7 +40,7 @@ def paged_list_helper(app):
 
         return dict(paged_list_pager=paged_list_pager,
                     page_url_generator=page_url_generator,
-                    PagedListRenderOptions=options.PagedListRenderOptions)
+                    paged_options=options)
 
 
 def create_app():
