@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import math
 import os
+from datetime import timedelta
 
 import jinja2
 from flask import Flask
@@ -14,20 +14,13 @@ from .views.unobtrusive import UnobtrusiveView
 
 
 def custom_jinja2_filters(app):
-    @app.template_filter('human_size')
-    def human_size(size):
-        """http://stackoverflow.com/a/14822210"""
-        size_name = ("KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
-        i = int(math.floor(math.log(size,1024)))
-        p = math.pow(1024,i)
-        s = round(size/p,2)
-        if (s > 0):
-           return '%s %s' % (s,size_name[i])
-        else:
-           return '0B'
+    @app.template_filter('human_duration')
+    def human_duration(millis):
+        td = timedelta(milliseconds=millis)
+        return str(td)
 
-    @app.template_filter('price')
-    def price(price):
+    @app.template_filter('human_price')
+    def human_price(price):
         return '$ {0:.2f}'.format(price)
 
 

@@ -17,9 +17,9 @@
       <td>{{ item.id }}</td>
       <td>{{ item.name }}</td>
       <td>{{ item.composer }}</td>
-      <td>{{ item.duration }}</td>
-      <td>{{ item.size|human_size }}</td>
-      <td>{{ item.unit_price|price }}</td>
+      <td>{{ item.duration|human_duration }}</td>
+      <td>{{ item.size|filesizeformat }}</td>
+      <td>{{ item.unit_price|human_price }}</td>
     </tr>
     {% endfor %}
   </tbody>
