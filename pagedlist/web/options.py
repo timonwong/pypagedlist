@@ -6,13 +6,37 @@ from pagedlist.web.ajax import AjaxOptions
 
 class GoToFormRenderOptions(object):
     __slots__ = ['label_format', 'submit_button_format', 'input_field_name',
-                 'input_field_type']
+                 'input_field_type', 'extra_form_attrs']
 
     def __init__(self, input_field_name="page"):
         self.label_format = "Go to page:"
         self.submit_button_format = "Go"
         self.input_field_name = input_field_name
         self.input_field_type = "number"
+        self.extra_form_attrs = {}
+
+    @classmethod
+    def enable_unobtrusive_ajax_replacing(cls, options, ajax_options):
+        options.extra_form_attrs.update(
+            ajax_options.to_unobtrusive_html_attributes())
+        return options
+
+    @classmethod
+    def enable_unobtrusive_ajax_replacing_id(cls, element_id):
+        if element_id.startswith('#'):
+            element_id = element_id[1:]
+
+        ajax_options = AjaxOptions(
+            http_method='GET',
+            insertion_mode='replace',
+            update_target_id=element_id,
+        )
+
+        return cls.enable_unobtrusive_ajax_replacing(cls(), ajax_options)
+
+    @classmethod
+    def enable_unobtrusive_ajax_replacing_options(cls, ajax_options):
+        return cls.enable_unobtrusive_ajax_replacing(cls(), ajax_options)
 
 
 class PagedListDisplayMode(object):
@@ -185,13 +209,11 @@ class PagedListRenderOptions(object):
             update_target_id=element_id,
         )
 
-        return cls.enable_unobtrusive_ajax_replacing(PagedListRenderOptions(),
-                                                     ajax_options)
+        return cls.enable_unobtrusive_ajax_replacing(cls(), ajax_options)
 
     @classmethod
     def enable_unobtrusive_ajax_replacing_options(cls, ajax_options):
-        return cls.enable_unobtrusive_ajax_replacing(PagedListRenderOptions(),
-                                                     ajax_options)
+        return cls.enable_unobtrusive_ajax_replacing(cls(), ajax_options)
 
     @classmethod
     def classic(cls):

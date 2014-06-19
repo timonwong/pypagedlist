@@ -269,7 +269,7 @@ class Builder(object):
 
         form = tag.form
         cls._element_with_classes(form, 'PagedList-goToPage')
-        form(action=form_action, method='get')
+        form(action=form_action, method='get', **options.extra_form_attrs)
 
         fieldset = tag.fieldset
 
