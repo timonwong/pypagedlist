@@ -246,7 +246,8 @@ class Builder(object):
                 cls._element_with_classes(li, *options.li_element_classes)
 
         # Collapse all of the list items into one big strings
-        list_items_string = ''.join([li.generate().render() for li in list_item_links])
+        list_items_string = ''.join([li.generate().render()
+                                     for li in list_item_links])
 
         ul = tag.ul(genshi.core.Markup(list_items_string))
         cls._element_with_classes(ul, *options.ul_element_classes)
