@@ -122,11 +122,11 @@ class PagedListRenderOptions(object):
         :param class_to_apply_to_last_list_item_in_pager: Specifies a CSS class
             to append to the last list item in the pager. If null or whitespace
             is defined, no additional class is added to last list item in list.
-        :param container_div_classes:  CSS Classes to append to the &lt;div&gt;
+        :param container_div_classes:  CSS Classes to append to the <div>
             element that wraps the paging control.
-        :param ul_element_classes:  CSSClasses to append to the &lt;ul&gt;
+        :param ul_element_classes:  CSSClasses to append to the <ul>
             element in the paging control.
-        :param li_element_classes: CSS Classes to append to every &lt;li&gt;
+        :param li_element_classes: CSS Classes to append to every <li
             element in the paging control.
         :param display_item_slice_and_total: When true, shows the one-based
             index of the first and last items on the page, and the total number
