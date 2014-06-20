@@ -15,7 +15,7 @@ class Builder(object):
     @classmethod
     def _element_with_classes(cls, element, *classes):
         old_class = element.attrib.get('class', '')
-        if old_class and not old_class.endswith(' '):
+        if old_class and classes and not old_class.endswith(' '):
             old_class += ' '
         new_class = old_class + ' '.join(classes)
         element(class_=new_class)
