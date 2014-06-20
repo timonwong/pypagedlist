@@ -2,8 +2,9 @@
 import genshi
 from genshi.builder import tag
 
-from .options import PagedListRenderOptions, PagedListDisplayMode, \
-    GoToFormRenderOptions
+from .options import GoToFormRenderOptions
+from .options import PagedListDisplayMode
+from .options import PagedListRenderOptions
 
 
 class Builder(object):
