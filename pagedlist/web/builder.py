@@ -194,7 +194,7 @@ class Builder(object):
                 list_item_links.append(cls._ellipses(options))
 
             for i in range(first_page_to_display,
-                           first_page_to_display + page_numbers_to_display + 1):
+                           first_page_to_display + page_numbers_to_display):
                 # Show delimiter between page numbers
                 if i > first_page_to_display and \
                         options.delimiter_between_page_numbers:
