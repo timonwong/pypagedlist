@@ -2,9 +2,33 @@
 
 
 class InsertionMode(object):
+    #: Response data is prepended with jQuery.prepend() as a first child of
+    #: target (data-ajax-update) element.
+    #: Note: Target element is NOT emptied before inserting.
     Replace = 'replace'
+
+    #: Response data is appended with jQuery.append() as a last child of target
+    #: (data-ajax-update) element.
+    #:  Note: Target element is NOT emptied before inserting.
     InsertBefore = 'before'
+
+    #: Response data replaces with jQuery.empty().html() inner content of target
+    #:  (data-ajax-update) element and NOT an element itseft. So every
+    #: attribute (e.g. <div id="someId">) of target element will stay intact.
+    #: Note: Target element IS emptied before inserting.
     InsertAfter = 'after'
+
+    #: Will replace (data-ajax-update) element itself with all its content.
+    #: Uses jQuery.after() and jQuery.remove() combo.
+    RealReplace = 'realreplace'
+
+    #: Response data is inserted before (data-ajax-update) element.
+    #: Uses jQuery.before()
+    BeforeElement = 'beforeelement'
+
+    #: Response data is inserted after (data-ajax-update) element.
+    #: Uses jQuery.after()
+    AfterElement = 'afterelement'
 
 
 class AjaxOptions(object):
