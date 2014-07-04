@@ -186,6 +186,8 @@ class PagedListBase(IPagedList):
             else:
                 self._subset = self._query_limit_offset_fn(
                     query, page_size, (page_number - 1) * page_size)
+        else:
+            self._subset = []
 
     def _query_count_fn(self, query):
         return 0
